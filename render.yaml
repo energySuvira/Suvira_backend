@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: suvira-energy-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: CONNECTION_URL
+        value: "mongodb+srv://energysuvira:WmQZh9QrIxmGmJOQ@cluster0.ikh0gnu.mongodb.net/Suvira-Energy"
+      - key: JWT_SECRET
+        value: "Test"
+      - key: MAIL_HOST
+        value: "smtp.gmail.com"
+      - key: MAIL_USER
+        value: "ratanjeetsinghrandhawa79@gmail.com"
+      - key: MAIL_PASS
+        value: "pbvmascyauasvaha"
+      - key: API_KEY
+        value: "625559286535851"
+      - key: API_SECRET
+        value: "xNVeqhQfH8PFsGGgQS6C8ikfvn0"
+      - key: CLOUD_NAME
+        value: "dvgcxl8gc"
