@@ -1,0 +1,42 @@
+services:
+  suvira-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: suvira-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # Add your environment variables here
+      # - CONNECTION_URL=${CONNECTION_URL}
+      # - JWT_SECRET=${JWT_SECRET}
+      # - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      # - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      # - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    volumes:
+      # Mount uploads directory to persist uploaded files
+      - ./uploads:/app/uploads
+      # Mount tmp directory for temporary files
+      - ./tmp:/app/tmp
+    restart: unless-stopped
+    networks:
+      - suvira-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  suvira-network:
+    driver: bridge
+
+# Optional: Add volumes for persistent data
+volumes:
+  suvira-uploads:
+    driver: local
+  suvira-tmp:
+    driver: local
